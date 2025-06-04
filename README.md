@@ -7,8 +7,8 @@ qemu to emulate the stm32vldiscovery board.
 
 # Starting the Qemu Emulator
 Inside the port directory run <br>
-<pre> ```bash make qemu``` </pre>
+<pre> make qemu </pre>
 
 # Starting the debugger
 Inside the port directory in a new terminal run <br>
-<pre> ```bash make gdb``` </pre>
+<pre> make gdb </pre>
