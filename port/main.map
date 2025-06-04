@@ -1,0 +1,362 @@
+
+There are no discarded input sections
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x08000000         0x00020000         xr
+SRAM             0x20000000         0x00002000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+
+.text           0x08000000     0x5ea0
+                0x08000000                        . = ALIGN (0x4)
+ *(.vectors)
+ .vectors       0x08000000       0x40 startup.o
+ *(.text*)
+ .text          0x08000040        0x6 startup.o
+                0x08000040                reset_handler
+                0x08000042                NMI_Handler
+                0x08000044                HardFault_Handler
+ *fill*         0x08000046        0x2 
+ .text          0x08000048       0x64 c_startup.o
+                0x08000048                c_startup
+ .text          0x080000ac       0xf8 main.o
+                0x080000ac                memset
+                0x080000e0                memcpy
+                0x0800011c                vTask1
+                0x0800012c                vTask2
+                0x0800013c                vApplicationTickHook
+                0x08000148                vApplicationStackOverflowHook
+                0x08000154                vApplicationMallocFailedHook
+                0x08000160                main
+ .text          0x080001a4     0x2f8c tasks.o
+                0x08000260                xTaskCreateStatic
+                0x08000328                xTaskCreate
+                0x080005b4                vTaskDelete
+                0x080006d8                xTaskDelayUntil
+                0x080007d4                vTaskDelay
+                0x0800083c                uxTaskPriorityGet
+                0x0800088c                uxTaskPriorityGetFromISR
+                0x08000900                uxTaskBasePriorityGet
+                0x08000950                uxTaskBasePriorityGetFromISR
+                0x080009c4                vTaskPrioritySet
+                0x08000b7c                vTaskSuspend
+                0x08000d28                vTaskResume
+                0x08000e38                xTaskResumeFromISR
+                0x08001068                vTaskStartScheduler
+                0x080010f0                vTaskEndScheduler
+                0x08001154                vTaskSuspendAll
+                0x08001170                xTaskResumeAll
+                0x08001380                xTaskGetTickCount
+                0x0800139c                xTaskGetTickCountFromISR
+                0x080013c0                uxTaskGetNumberOfTasks
+                0x080013d4                pcTaskGetName
+                0x0800141c                xTaskGetStaticBuffers
+                0x080014dc                xTaskCatchUpTicks
+                0x08001534                xTaskIncrementTick
+                0x0800174c                vTaskSwitchContext
+                0x08001864                vTaskPlaceOnEventList
+                0x080018ac                vTaskPlaceOnUnorderedEventList
+                0x08001958                vTaskPlaceOnEventListRestricted
+                0x080019e4                xTaskRemoveFromEventList
+                0x08001b94                vTaskRemoveFromUnorderedEventList
+                0x08001d18                vTaskSetTimeOutState
+                0x08001d64                vTaskInternalSetTimeOutState
+                0x08001d90                xTaskCheckForTimeOut
+                0x08001e5c                vTaskMissedYield
+                0x08002014                xTaskGetCurrentTaskHandle
+                0x08002030                xTaskGetCurrentTaskHandleForCore
+                0x08002060                xTaskGetSchedulerState
+                0x0800209c                xTaskPriorityInherit
+                0x080021c0                xTaskPriorityDisinherit
+                0x080022f0                vTaskPriorityDisinheritAfterTimeout
+                0x08002448                uxTaskResetEventItemValue
+                0x08002478                pvTaskIncrementMutexHeldCount
+                0x080024a4                ulTaskGenericNotifyTake
+                0x080025b0                xTaskGenericNotifyWait
+                0x080026f0                xTaskGenericNotify
+                0x08002948                xTaskGenericNotifyFromISR
+                0x08002c14                vTaskGenericNotifyGiveFromISR
+                0x08002e28                xTaskGenericNotifyStateClear
+                0x08002eb8                ulTaskGenericNotifyValueClear
+                0x08003030                vApplicationGetIdleTaskMemory
+                0x08003060                vApplicationGetTimerTaskMemory
+                0x08003090                vTaskResetState
+ .text          0x08003130      0x15e list.o
+                0x08003130                vListInitialise
+                0x0800316e                vListInitialiseItem
+                0x08003186                vListInsertEnd
+                0x080031cc                vListInsert
+                0x0800323c                uxListRemove
+ *fill*         0x0800328e        0x2 
+ .text          0x08003290     0x163c queue.o
+                0x08003290                xQueueGenericReset
+                0x080033b0                xQueueGenericCreateStatic
+                0x0800346c                xQueueGenericGetStaticBuffers
+                0x080034e8                xQueueGenericCreate
+                0x080035fe                xQueueCreateMutex
+                0x0800362e                xQueueCreateMutexStatic
+                0x08003664                xQueueGiveMutexRecursive
+                0x080036cc                xQueueTakeMutexRecursive
+                0x08003774                xQueueCreateCountingSemaphoreStatic
+                0x080037d8                xQueueCreateCountingSemaphore
+                0x08003834                xQueueGenericSend
+                0x08003a30                xQueueGenericSendFromISR
+                0x08003b94                xQueueGiveFromISR
+                0x08003cdc                xQueueReceive
+                0x08003e9c                xQueueSemaphoreTake
+                0x08004098                xQueuePeek
+                0x0800425c                xQueueReceiveFromISR
+                0x0800438a                xQueuePeekFromISR
+                0x0800445c                uxQueueMessagesWaiting
+                0x08004498                uxQueueSpacesAvailable
+                0x080044de                uxQueueMessagesWaitingFromISR
+                0x08004518                vQueueDelete
+                0x08004558                uxQueueGetQueueItemSize
+                0x0800456e                uxQueueGetQueueLength
+                0x080047a2                xQueueIsQueueEmptyFromISR
+                0x08004818                xQueueIsQueueFullFromISR
+                0x08004862                vQueueWaitForMessageRestricted
+ .text          0x080048cc      0xa68 timers.o
+                0x080048cc                xTimerCreateTimerTask
+                0x0800495c                xTimerCreate
+                0x0800499e                xTimerCreateStatic
+                0x08004a8a                xTimerGenericCommandFromTask
+                0x08004b18                xTimerGenericCommandFromISR
+                0x08004b88                xTimerGetTimerDaemonTaskHandle
+                0x08004bc0                xTimerGetPeriod
+                0x08004bf6                vTimerSetReloadMode
+                0x08004c5c                xTimerGetReloadMode
+                0x08004cae                uxTimerGetReloadMode
+                0x08004cca                xTimerGetExpiryTime
+                0x08004d04                xTimerGetStaticBuffer
+                0x08004d58                pcTimerGetName
+                0x08005240                xTimerIsTimerActive
+                0x08005292                pvTimerGetTimerID
+                0x080052d2                vTimerSetTimerID
+                0x08005312                vTimerResetState
+ .text          0x08005334      0x488 port.o
+                0x08005334                pxPortInitialiseStack
+                0x080053e4                vPortSVCHandler
+                0x0800542a                xPortStartScheduler
+                0x0800559c                vPortEndScheduler
+                0x080055d0                vPortEnterCritical
+                0x08005630                vPortExitCritical
+                0x08005680                xPortPendSVHandler
+                0x080056c6                xPortSysTickHandler
+                0x0800570c                vPortSetupTimerInterrupt
+                0x08005740                vPortValidateInterruptPriority
+ .text          0x080057bc      0x6b8 heap_4.o
+                0x080057bc                pvPortMalloc
+                0x08005a1c                vPortFree
+                0x08005b24                xPortGetFreeHeapSize
+                0x08005b38                xPortGetMinimumEverFreeHeapSize
+                0x08005b4c                xPortResetHeapMinimumEverFreeHeapSize
+                0x08005b68                vPortInitialiseBlocks
+                0x08005b74                pvPortCalloc
+                0x08005d78                vPortGetHeapStats
+                0x08005e34                vPortHeapResetState
+ *(.rodata*)
+ .rodata        0x08005e74        0xe main.o
+ *fill*         0x08005e82        0x2 
+ .rodata        0x08005e84        0x9 tasks.o
+ *fill*         0x08005e8d        0x3 
+ .rodata        0x08005e90        0x8 timers.o
+ .rodata        0x08005e98        0x4 port.o
+ .rodata        0x08005e9c        0x4 heap_4.o
+                0x08005ea0                        . = ALIGN (0x4)
+                0x08005ea0                        _sidata = .
+
+.glue_7         0x08005ea0        0x0
+ .glue_7        0x08005ea0        0x0 linker stubs
+
+.glue_7t        0x08005ea0        0x0
+ .glue_7t       0x08005ea0        0x0 linker stubs
+
+.vfp11_veneer   0x08005ea0        0x0
+ .vfp11_veneer  0x08005ea0        0x0 linker stubs
+
+.v4_bx          0x08005ea0        0x0
+ .v4_bx         0x08005ea0        0x0 linker stubs
+
+.iplt           0x08005ea0        0x0
+ .iplt          0x08005ea0        0x0 startup.o
+
+.rel.dyn        0x08005ea0        0x0
+ .rel.iplt      0x08005ea0        0x0 startup.o
+
+.data           0x20000000        0x4 load address 0x08005ea0
+                0x20000000                        . = ALIGN (0x4)
+                0x20000000                        _sdata = .
+ *(.data*)
+ .data          0x20000000        0x0 startup.o
+ .data          0x20000000        0x0 c_startup.o
+ .data          0x20000000        0x0 main.o
+ .data          0x20000000        0x0 tasks.o
+ .data          0x20000000        0x0 list.o
+ .data          0x20000000        0x0 queue.o
+ .data          0x20000000        0x0 timers.o
+ .data          0x20000000        0x4 port.o
+ .data          0x20000004        0x0 heap_4.o
+                0x20000004                        . = ALIGN (0x4)
+                0x20000004                        _edata = .
+
+.igot.plt       0x20000004        0x0 load address 0x08005ea4
+ .igot.plt      0x20000004        0x0 startup.o
+
+.bss            0x20000004     0x16cc load address 0x08005ea4
+                0x20000004                        . = ALIGN (0x4)
+                0x20000004                        _sbss = .
+ *(.bss*)
+ .bss           0x20000004        0x0 startup.o
+ .bss           0x20000004        0x0 c_startup.o
+ .bss           0x20000004        0x0 main.o
+ .bss           0x20000004      0x5ac tasks.o
+                0x20000004                pxCurrentTCB
+ .bss           0x200005b0        0x0 list.o
+ .bss           0x200005b0        0x0 queue.o
+ .bss           0x200005b0       0xfc timers.o
+ .bss           0x200006ac        0x8 port.o
+ .bss           0x200006b4     0x101c heap_4.o
+ *(COMMON)
+                0x200016d0                        . = ALIGN (0x4)
+                0x200016d0                        _ebss = .
+
+.stack          0x200016d0      0x800 load address 0x08007570
+                0x200016d0                        . = ALIGN (0x4)
+                0x200016d0                        _stack_bottom = .
+                0x20001ed0                        . = (. + 0x800)
+ *fill*         0x200016d0      0x800 
+                0x20001ed0                        . = ALIGN (0x4)
+                0x20001ed0                        _stack_top = .
+LOAD startup.o
+LOAD c_startup.o
+LOAD main.o
+LOAD tasks.o
+LOAD list.o
+LOAD queue.o
+LOAD timers.o
+LOAD port.o
+LOAD heap_4.o
+OUTPUT(main.elf elf32-littlearm)
+LOAD linker stubs
+
+.ARM.attributes
+                0x00000000       0x29
+ .ARM.attributes
+                0x00000000       0x1b startup.o
+ .ARM.attributes
+                0x0000001b       0x2d c_startup.o
+ .ARM.attributes
+                0x00000048       0x2d main.o
+ .ARM.attributes
+                0x00000075       0x2d tasks.o
+ .ARM.attributes
+                0x000000a2       0x2d list.o
+ .ARM.attributes
+                0x000000cf       0x2d queue.o
+ .ARM.attributes
+                0x000000fc       0x2d timers.o
+ .ARM.attributes
+                0x00000129       0x2d port.o
+ .ARM.attributes
+                0x00000156       0x2d heap_4.o
+
+.comment        0x00000000       0x26
+ .comment       0x00000000       0x26 c_startup.o
+                                 0x27 (size before relaxing)
+ .comment       0x00000026       0x27 main.o
+ .comment       0x00000026       0x27 tasks.o
+ .comment       0x00000026       0x27 list.o
+ .comment       0x00000026       0x27 queue.o
+ .comment       0x00000026       0x27 timers.o
+ .comment       0x00000026       0x27 port.o
+ .comment       0x00000026       0x27 heap_4.o
+
+.debug_line     0x00000000     0x37d7
+ .debug_line    0x00000000       0x47 startup.o
+ .debug_line    0x00000047       0x69 c_startup.o
+ .debug_line    0x000000b0      0x14e main.o
+ .debug_line    0x000001fe     0x1674 tasks.o
+ .debug_line    0x00001872      0x1b0 list.o
+ .debug_line    0x00001a22      0xefe queue.o
+ .debug_line    0x00002920      0x692 timers.o
+ .debug_line    0x00002fb2      0x324 port.o
+ .debug_line    0x000032d6      0x501 heap_4.o
+
+.debug_line_str
+                0x00000000       0x3c
+ .debug_line_str
+                0x00000000       0x3c startup.o
+
+.debug_info     0x00000000     0x6811
+ .debug_info    0x00000000       0x24 startup.o
+ .debug_info    0x00000024       0xbb c_startup.o
+ .debug_info    0x000000df      0x2c3 main.o
+ .debug_info    0x000003a2     0x2981 tasks.o
+ .debug_info    0x00002d23      0x29a list.o
+ .debug_info    0x00002fbd     0x1a52 queue.o
+ .debug_info    0x00004a0f     0x1325 timers.o
+ .debug_info    0x00005d34      0x503 port.o
+ .debug_info    0x00006237      0x5da heap_4.o
+
+.debug_abbrev   0x00000000     0x11d0
+ .debug_abbrev  0x00000000       0x14 startup.o
+ .debug_abbrev  0x00000014       0x8d c_startup.o
+ .debug_abbrev  0x000000a1      0x195 main.o
+ .debug_abbrev  0x00000236      0x387 tasks.o
+ .debug_abbrev  0x000005bd       0xec list.o
+ .debug_abbrev  0x000006a9      0x342 queue.o
+ .debug_abbrev  0x000009eb      0x33a timers.o
+ .debug_abbrev  0x00000d25      0x253 port.o
+ .debug_abbrev  0x00000f78      0x258 heap_4.o
+
+.debug_aranges  0x00000000      0x120
+ .debug_aranges
+                0x00000000       0x20 startup.o
+ .debug_aranges
+                0x00000020       0x20 c_startup.o
+ .debug_aranges
+                0x00000040       0x20 main.o
+ .debug_aranges
+                0x00000060       0x20 tasks.o
+ .debug_aranges
+                0x00000080       0x20 list.o
+ .debug_aranges
+                0x000000a0       0x20 queue.o
+ .debug_aranges
+                0x000000c0       0x20 timers.o
+ .debug_aranges
+                0x000000e0       0x20 port.o
+ .debug_aranges
+                0x00000100       0x20 heap_4.o
+
+.debug_str      0x00000000     0x22e5
+ .debug_str     0x00000000     0x22e5 startup.o
+                                 0x48 (size before relaxing)
+ .debug_str     0x000022e5       0xd8 c_startup.o
+ .debug_str     0x000022e5      0x253 main.o
+ .debug_str     0x000022e5     0x12f5 tasks.o
+ .debug_str     0x000022e5      0x27f list.o
+ .debug_str     0x000022e5      0xbcb queue.o
+ .debug_str     0x000022e5      0xb04 timers.o
+ .debug_str     0x000022e5      0x400 port.o
+ .debug_str     0x000022e5      0x503 heap_4.o
+
+.debug_frame    0x00000000     0x17d4
+ .debug_frame   0x00000000       0x34 c_startup.o
+ .debug_frame   0x00000034      0x11c main.o
+ .debug_frame   0x00000150      0x948 tasks.o
+ .debug_frame   0x00000a98       0xd8 list.o
+ .debug_frame   0x00000b70      0x528 queue.o
+ .debug_frame   0x00001098      0x410 timers.o
+ .debug_frame   0x000014a8      0x198 port.o
+ .debug_frame   0x00001640      0x194 heap_4.o
+
+.debug_rnglists
+                0x00000000       0x1c
+ .debug_rnglists
+                0x00000000       0x1c tasks.o
